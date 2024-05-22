@@ -50,7 +50,7 @@ export default class Command extends BaseCommand {
                     externalAdReply: {
                         title: `${this.client.util.capitalize(this.client.config.name)}'s Commands`,
                         body: '',
-                        thumbnail: await this.client.util.fetchBuffer('https://i.imgur.com/22WppSh.jpg'),
+                        thumbnail: await this.client.util.fetchBuffer('https://telegra.ph/file/b82c7d8df5a816014db75.jpg'),
                         mediaType: 1,
                         mediaUrl: '',
                         sourceUrl: '',
