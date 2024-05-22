@@ -29,7 +29,7 @@ export default class Command extends BaseCommand {
                     categories[info.config.category].push(info)
                 }
             }
-            let text = `👋🏻 (❤️ω❤️) Konnichiwa, senpai ${M.sender.username}! this is ${this.client.util.capitalize(this.client.config.name)}\n\n🎋 *Support us by following us on instagram:* https://www.instagram.com/das_abae\n\n💡 My Prefix is *( ${this.client.config.prefix} )*\n\n    ⇓ *📪 Command list 📪* ⇓\n\n`
+            let text = `👋🏻 (❤️ω❤️) Konnichiwa, senpai ${M.sender.username}! this is ${this.client.util.capitalize(this.client.config.name)}\n\n🎋 *Support us by following us on instagram:* https://www.instagram.com/_ne_itachi_?igsh=a2t3dWl6am9jdGpv\n\n💡 My Prefix is *( ${this.client.config.prefix} )*\n\n    ⇓ *📪 Command list 📪* ⇓\n\n`
             const keys = Object.keys(categories)
             for (const key of keys)
                 text += `┌ ◦ *${this.emojis[keys.indexOf(key)]}「${key.toUpperCase()}」${this.emojis[keys.indexOf(key)]}*\n${categories[
@@ -43,7 +43,7 @@ export default class Command extends BaseCommand {
 
             return void (await M.replyRaw({
                 image: {
-                    url: 'https://i.pinimg.com/originals/82/83/68/8283687daf61e2464f30537d2cbca205.jpg'
+                    url: 'https://telegra.ph/file/656bec8e98c7ea9b05e8c.jpg'
                 },
                 caption: `${text}*📇 Notes:*\n*➪ Use ${this.client.config.prefix}help <command name> from help the list to see its description and usage*\n*➪ Eg: ${this.client.config.prefix}help profile*\n*➪ <> means required and [ ] means optional, don't include <> or [ ] when using command.*`,
                 contextInfo: {
