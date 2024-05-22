@@ -1,4 +1,4 @@
-import BaseCommand from '../../libs/BaseCommand.js'
+qqimport BaseCommand from '../../libs/BaseCommand.js'
 
 export default class Command extends BaseCommand {
     constructor(client, handler) {
@@ -18,7 +18,7 @@ export default class Command extends BaseCommand {
             `https://api.github.com/repos/Debanjan-San/WhatsApp-Bot-Devi`
         )
         return void (await M.replyRaw({
-            text: '*https://github.com/Debanjan-San/WhatsApp-Bot-Devi.git*',
+            text: '*sorry this repo is private 😊*',
             contextInfo: {
                 externalAdReply: {
                     title: `Updated at ${updated_at}`,
