@@ -18,12 +18,12 @@ export default class Command extends BaseCommand {
             `https://api.github.com/repos/Debanjan-San/WhatsApp-Bot-Devi`
         )
         return void (await M.replyRaw({
-            text: '*hi*',
+            text: '*its an private script😅*',
             contextInfo: {
                 externalAdReply: {
                     title: `Updated at ${updated_at}`,
                     body: `openIssues: ${open_issues_count}\nForks: ${forks_count}\nStars: ${stargazers_count}`,
-                    thumbnail: await this.client.util.fetchBuffer('https://i.imgur.com/22WppSh.jpg'),
+                    thumbnail: await this.client.util.fetchBuffer('https://telegra.ph/file/656bec8e98c7ea9b05e8c.jpg'),
                     mediaType: 1,
                     mediaUrl: '',
                     sourceUrl: 'https://github.com/Debanjan-San/WhatsApp-Bot-Devi.git',
