@@ -27,8 +27,8 @@ export default class Command extends BaseCommand {
         const sticker = new Sticker(
             typeof media === 'string' ? media : await this.client.util.downloadMediaMessage(media),
             {
-                pack: pack ?? `${this.client.config.name} Bot`,
-                author: title ?? 'By Debanjan',
+                pack: pack ?? `TIKU✨🦋`,
+                author: title ?? '+91 7086726371',
                 type: StickerTypes.FULL,
                 quality: 70
             }
