@@ -3,7 +3,7 @@ import BaseCommand from '../../libs/BaseCommand.js'
 export default class Command extends BaseCommand {
     constructor(client, handler) {
         super(client, handler, {
-            command: 'ping',
+            command: 'tagall',
             category: 'moderation',
             description: {
                 content: 'Ping Members'
