@@ -39,10 +39,17 @@ export const reactions = [
 
 export class Reaction {
     getReaction = async (reaction, single = true) => {
-        const data = await this.utils.fetch(`https://nekos.best/api/v2/neko=${reaction}&key=LIVDSRZULELA&limit=8`)
+        // Adjusting the nekos.best API call
+        const data = await this.utils.fetch(`https://nekos.best/api/v2/neko`)
+        
+        // Extracting the URL of the image/video
+        const url = data.results?.[0]?.url
+        
+        // Get suitable words based on the reaction
         const words = this.getSuitableWords(reaction, single)
+        
         return {
-            url: data.results?.[Math.floor(Math.random() * data.results.length)]?.media[0]?.mp4?.url,
+            url,
             words
         }
     }
