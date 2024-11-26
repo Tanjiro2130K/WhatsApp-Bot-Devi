@@ -39,7 +39,7 @@ export const reactions = [
 
 export class Reaction {
     getReaction = async (reaction, single = true) => {
-        const data = await this.utils.fetch(`https://g.tenor.com/v1/search?q=${reaction}&key=LIVDSRZULELA&limit=8`)
+        const data = await this.utils.fetch(`https://nekos.best/api/v2/neko=${reaction}&key=LIVDSRZULELA&limit=8`)
         const words = this.getSuitableWords(reaction, single)
         return {
             url: data.results?.[Math.floor(Math.random() * data.results.length)]?.media[0]?.mp4?.url,
