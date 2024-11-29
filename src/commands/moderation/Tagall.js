@@ -65,5 +65,4 @@ export default class Command extends BaseCommand {
             participants
         );
     };
-    
 }
