@@ -1,131 +1,42 @@
-import Utils from './Util.js'
+import BaseCommand from '../../libs/BaseCommand.js'
+import { Reaction, reactions } from '../../utils/Reaction.js'
 
-export const reactions = [
-    'bully',
-    'cuddle',
-    'cry',
-    'hug',
-    'kiss',
-    'lick',
-    'pat',
-    'smug',
-    'yeet',
-    'blush',
-    'bonk',
-    'smile',
-    'wave',
-    'highfive',
-    'bite',
-    'handhold',
-    'nom',
-    'glomp',
-    'kill',
-    'kick',
-    'slap',
-    'happy',
-    'wink',
-    'poke',
-    'dance',
-    'cringe',
-    'tickle',
-    'baka',
-    'bored',
-    'laugh',
-    'punch',
-    'pout',
-    'stare',
-    'thumbsup'
-]
-
-export class Reaction {
-    getReaction = async (reaction, single = true) => {
-        // Adjusting the nekos.best API call
-        const data = await this.utils.fetch(`https://nekos.best/api/v2/neko`)
-        
-        // Extracting the URL of the image/video
-        const url = data.results?.[0]?.url
-        
-        // Get suitable words based on the reaction
-        const words = this.getSuitableWords(reaction, single)
-        
-        return {
-            url,
-            words
-        }
+export default class Command extends BaseCommand {
+    constructor(client, handler) {
+        super(client, handler, {
+            command: 'reaction',
+            aliases: [...reactions],
+            category: 'fun',
+            description: {
+                content: "React to someone's message with a gif specified by the user.",
+                usage: '[quote | [@mention]]'
+            },
+            exp: 5
+        })
     }
 
-    getSuitableWords = (reaction, single = true) => {
-        switch (reaction) {
-            case 'bite':
-                return 'Bit'
-            case 'blush':
-                return 'Blushed at'
-            case 'bonk':
-                return 'Bonked'
-            case 'bully':
-                return 'Bullied'
-            case 'cringe':
-                return 'Cringed at'
-            case 'cry':
-                return single ? 'Cried by' : 'Cried in front of'
-            case 'cuddle':
-                return 'Cuddled'
-            case 'dance':
-                return 'Danced with'
-            case 'glomp':
-                return 'Glomped at'
-            case 'handhold':
-                return 'Held the hands of'
-            case 'happy':
-                return single ? 'is Happied by' : 'is Happied with'
-            case 'highfive':
-                return 'High-fived'
-            case 'hug':
-                return 'Hugged'
-            case 'kick':
-                return 'Kicked'
-            case 'kill':
-                return 'Killed'
-            case 'kiss':
-                return 'Kissed'
-            case 'lick':
-                return 'Licked'
-            case 'nom':
-                return 'Nomed'
-            case 'pat':
-                return 'Patted'
-            case 'poke':
-                return 'Poked'
-            case 'slap':
-                return 'Slapped'
-            case 'smile':
-                return 'Smiled at'
-            case 'smug':
-                return 'Smugged'
-            case 'tickle':
-                return 'Tickled'
-            case 'wave':
-                return 'Waved at'
-            case 'wink':
-                return 'Winked at'
-            case 'yeet':
-                return 'Yeeted at'
-            case 'baka':
-                return 'Yelled BAKA at'
-            case 'bored':
-                return 'is Bored of'
-            case 'laugh':
-                return 'Laughed at'
-            case 'punch':
-                return 'Punched'
-            case 'pout':
-                return 'Pouted'
-            case 'stare':
-                return 'Stared at'
-            case 'thumbsup':
-                return 'Thumbs-upped at'
+    exec = async (M, { cmd }) => {
+        if (M.quoted?.sender) M.mentioned.push(M.quoted.sender)
+        M.mentioned = [...new Set(M.mentioned)]
+        if (!M.mentioned.length) M.mentioned.push(M.sender.jid)
+        if (cmd === 'reaction' || cmd === 'r') {
+            const reactionList = `💫 *Available Reactions:*\n\n- ${reactions
+                .map((reaction) => this.client.util.capitalize(reaction))
+                .join('\n- ')}\n🔗  *Usage:* ${this.client.config.prefix}(reaction) [tag/quote user]\nExample: ${
+                this.client.config.prefix
+            }pat`
+            return void (await M.reply(reactionList))
         }
-    }
 
-    utils = new Utils()
-}
+        const single = M.mentioned[0] === M.sender.jid
+        const { url, words } = await new Reaction().getReaction(cmd, single)
+        return void (await M.replyRaw({
+            video: await this.client.util.fetchBuffer(url),
+            gifPlayback: true,
+            caption: `*@${M.sender.jid.split('@')[0]} ${words} ${
+                single ? 'Themselves' : `@${M.mentioned[0].split('@')[0]}`
+            }*`,
+            mentions: [M.sender.jid, M.mentioned[0]]
+        }))
+    }
+    
