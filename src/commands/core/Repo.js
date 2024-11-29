@@ -15,7 +15,7 @@ export default class Command extends BaseCommand {
 
     exec = async (M) => {
         const { open_issues_count, forks_count, stargazers_count, updated_at } = await this.client.util.fetch(
-            `https://github.com/Tanjiro2130K/WhatsApp-Bot-Devi`
+            `https://github.com/yudataguy/Awesome-Japanese`
         )
         return void (await M.replyRaw({
             text: '*🫦 come dm*',
@@ -26,7 +26,7 @@ export default class Command extends BaseCommand {
                     thumbnail: await this.client.util.fetchBuffer('https://i.imgur.com/22WppSh.jpg'),
                     mediaType: 1,
                     mediaUrl: '',
-                    sourceUrl: 'https://github.com/Debanjan-San/WhatsApp-Bot-Devi.git',
+                    sourceUrl: 'https://github.com/yudataguy/Awesome-Japanese',
                     ShowAdAttribution: true
                 }
             }
