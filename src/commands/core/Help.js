@@ -23,52 +23,48 @@ export default class Command extends BaseCommand {
                 const info = this.handler.commands.get(command);
                 if (!command) continue;
                 if (!info?.config?.category || info.config.category === 'dev') continue;
-                if (Object.keys(categories).includes(info.config.category)) categories[info.config.category].push(info);
-                else {
+                if (Object.keys(categories).includes(info.config.category)) {
+                    categories[info.config.category].push(info);
+                } else {
                     categories[info.config.category] = [];
                     categories[info.config.category].push(info);
                 }
             }
 
-            // Anime-styled text
-            let text = `🌸 *Ohayō, Senpai 👋🏻 (❤️ω❤️) ${M.sender.username}!*\n\n🎀 *Welcome to ${this.client.util.capitalize(this.client.config.name)}, your kawaii helper bot!* 🎀\n\n🎋 *Support us by showing some love on whhatsapp = \n\n✨ *Prefix:* ( ${this.client.config.prefix} )\n\n⚡️ Here’s the magical list of commands:\n\n`;
+            let text = `🌸 *Konnichiwa, (❤️ω❤️) ${M.sender.username}-senpai!* \n\n🍂 Welcome to ${this.client.util.capitalize(this.client.config.name)}, your kawai helper bot! \n\n🎋 Support us by showing some love on WhatsApp! \n\n🍥 My Prefix is *( ${this.client.config.prefix} )*\n\n*⛩️ Command List ⛩️*\n\n`;
+            
             const keys = Object.keys(categories);
-            for (const key of keys)
-                text += `┌ ◦ *${this.emojis[keys.indexOf(key)]}「${key.toUpperCase()}」${this.emojis[keys.indexOf(key)]}*\n${categories[
-                    key
-                ]
-                    .map(
-                        (command) =>
-                            `*${this.client.config.prefix}${this.replaceWithCustomAlphabet(command.config?.command)}* _${command.config.description.usage ?? ''}_`
-                    )
-                    .join('\n')}\n\n`;
+            for (const key of keys) {
+                text += ` ${this.emojis[keys.indexOf(key)]}「${key.toUpperCase()}」${this.emojis[keys.indexOf(key)]}\n${categories[key]
+                    .map((command) => `${this.replaceWithCustomAlphabet(command.config?.command)}`)
+                    .join(', ')}\n\n`;
+            }
 
-            text += `🌸 *Notes:*\n➪ *Use ${this.client.config.prefix}help <command name>* to explore the wonders of each command.\n➪ Eg: *${this.client.config.prefix}help profile*\n➪ <> *denotes required and [ ] denotes optional — do not include them while using the commands.*`;
-
-            // Add anime-themed image URL
-            const imageUrl = 'https://fighter-programmer-uploaderf.hf.space/file/image-tmrxltotrrh.jpg'; // Replace with any anime-themed image URL
-            await this.client.sendMessage(M.chat, {
-                image: { url: imageUrl },
-                caption: text
-            });
-
-            return;
+            return void (await M.replyRaw({
+                caption: `${text}*📜 Notes:*\n*➪ Use ${this.client.config.prefix}help <command name> from the list to see its description and usage.*\n*➪ Eg: ${this.client.config.prefix}help profile*\n*➪ <> means required and [ ] means optional. Don't include <> or [ ] when using commands.*`,
+                image: await this.client.util.fetchBuffer("https://rammpntxxx-up.hf.space/file/image-d5tr0gn7uvg.jpg")
+            }));
         }
+
         const key = parsedArgs.text.toLowerCase();
         const command = this.handler.commands.get(key) || this.handler.aliases.get(key);
-        if (!command) return void (await M.reply(`❌ *Gomenasai, Senpai!* No Command or Alias Found *"${key}"*`));
+        if (!command) {
+            return void (await M.reply(`❌ *Gomenasai!* No command or alias found for *"${key}"*.`));
+        }
+
         const cmdStatus = (await this.client.DB.command.get(command.config?.command)) ?? {
             isDisabled: false,
             reason: ''
         };
-        return void (await M.reply(`🟥 *Command:* ${command.config.command}
-🟧 *Category:* ${command.config.category}
-🟨 *Aliases:* ${command.config.aliases ? command.config.aliases.join(', ').trim() : 'None'}
-🟩 *PrivateChat:* ${command.config.dm ? 'True' : 'False'}
-🟦 *Admin:* ${command.config.adminOnly ? 'True' : 'False'}
-⬛ *Status:* ${cmdStatus.isDisabled} - ${cmdStatus.reason}
-🟪 *Usage:* ${this.client.config.prefix}${command.config.command} ${command.config.description.usage ?? ''}
-⬜ *Description:* ${command.config.description?.content}`));
+
+        return void (await M.reply(`🎀 *Command:* ${command.config.command}
+🎐 *Category:* ${command.config.category}
+🎀 *Aliases:* ${command.config.aliases ? command.config.aliases.join(', ').trim() : 'None'}
+🎐 *Private Chat:* ${command.config.dm ? 'True' : 'False'}
+🎀 *Admin Only:* ${command.config.adminOnly ? 'True' : 'False'}
+🎐 *Status:* ${cmdStatus.isDisabled ? 'Disabled' : 'Enabled'}${cmdStatus.reason ? ` - ${cmdStatus.reason}` : ''}
+🎀 *Usage:* ${this.client.config.prefix}${command.config.command} ${command.config.description.usage ?? ''}
+🎐 *Description:* ${command.config.description?.content}`));
     };
 
     replaceWithCustomAlphabet = (sentence) => {
@@ -112,5 +108,5 @@ export default class Command extends BaseCommand {
         return replacedWords.join(' ');
     };
 
-    emojis = ['🌟', '🎀', '🔮', '👑', '🎈', '⚙️', '🍀', '💈', '🔰'];
+    emojis = ['🌟', '🍙', '🈷️', '🌌', '⛩️', '⚔️', '🍡', '💫', '🔰'];
 }
