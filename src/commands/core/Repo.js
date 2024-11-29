@@ -15,10 +15,10 @@ export default class Command extends BaseCommand {
 
     exec = async (M) => {
         const { open_issues_count, forks_count, stargazers_count, updated_at } = await this.client.util.fetch(
-            `https://api.github.com/repos/Debanjan-San/WhatsApp-Bot-Devi`
+            ``
         )
         return void (await M.replyRaw({
-            text: '*https://github.com/Debanjan-San/WhatsApp-Bot-Devi.git*',
+            text: '*🫦 come dm*',
             contextInfo: {
                 externalAdReply: {
                     title: `Updated at ${updated_at}`,
