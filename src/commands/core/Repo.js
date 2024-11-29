@@ -23,7 +23,7 @@ export default class Command extends BaseCommand {
                 externalAdReply: {
                     title: `Updated at ${updated_at}`,
                     body: `openIssues: ${open_issues_count}\nForks: ${forks_count}\nStars: ${stargazers_count}`,
-                    thumbnail: await this.client.util.fetchBuffer('https://i.imgur.com/22WppSh.jpg'),
+                    thumbnail: await this.client.util.fetchBuffer('https://rammpntxxx-up.hf.space/file/image-fwebg0ddvrk.jpg'),
                     mediaType: 1,
                     mediaUrl: '',
                     sourceUrl: 'https://github.com/yudataguy/Awesome-Japanese',
