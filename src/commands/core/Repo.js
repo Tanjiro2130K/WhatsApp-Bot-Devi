@@ -15,7 +15,7 @@ export default class Command extends BaseCommand {
 
     exec = async (M) => {
         const { open_issues_count, forks_count, stargazers_count, updated_at } = await this.client.util.fetch(
-            ``
+            `https://github.com/Tanjiro2130K/WhatsApp-Bot-Devi`
         )
         return void (await M.replyRaw({
             text: '*🫦 come dm*',
